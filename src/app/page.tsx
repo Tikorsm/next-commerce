@@ -2,9 +2,9 @@
 
 export default function Home() {
   return (
-    <main>
-      po
+    <div>
+      <h1> Next</h1>
 
-    </main>
+    </div>
   )
 }
