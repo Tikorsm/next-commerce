@@ -12,10 +12,12 @@
     "@clerk/localizations": "^1.26.10",
     "@clerk/nextjs": "^4.21.14",
     "@prisma/client": "^5.7.0",
+    "@stripe/stripe-js": "^1.54.1",
     "clsx": "^2.0.0",
     "next": "^13.4.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "stripe": "^12.12.0",
     "svix": "^1.15.0"
   },
   "devDependencies": {
