@@ -13,10 +13,33 @@ datasource db {
 }
 
 model user {
-  id         Int      @id @default(autoincrement())
-  externalId String   @unique
-  attributes Json
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  externalId       String   @unique
+  attributes       Json
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
   stripeCustomerId String?
+  Order            Order[]
+}
+
+model Order {
+  id              String    @id @default(cuid())
+  user            user      @relation(fields: [userId], references: [id])
+  userId          Int
+  amount          Float
+  currency        String
+  status          String
+  createData      DateTime  @default(now())
+  paymentIntentID String?   @unique
+  products        Product[]
+}
+
+model Product {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  image       String?
+  quantity    Float   @default(0)
+  orders      Order[]
 }
