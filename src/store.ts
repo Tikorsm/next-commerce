@@ -5,7 +5,7 @@ import { ProductType } from "@/types/ProductType";
 type CartState =  {
     cart: ProductType[];
     addProduct:(product:ProductType)=>void;
-    // removeProduct:(productId:string)=>void;
+    removeProduct:(product:ProductType)=>void;
     isOpen: boolean;
     toggleCart: () => void
 }
@@ -19,7 +19,7 @@ export const useCartStore = create<CartState>()(
         if (product) {
             const updatedCart = state.cart.map((p) => {
                 if ( p.id === item.id){
-                    return {...p, quatity: p.quantity ? p.quantity + 1 : 1};
+                    return {...p, quantity: p.quantity ? p.quantity + 1 : 1};
 
                 }
                 return p;
@@ -30,6 +30,23 @@ export const useCartStore = create<CartState>()(
         }
       })  
     },
+    removeProduct: (item) => 
+      set((state) => {
+        const existingProduct =  state.cart.find((p) => p.id === item.id);
+        if(existingProduct && existingProduct.quantity! > 1) {
+          const updatedProducts = state.cart.map((p) => {
+            if (p.id === item.id) {
+              return { ...p , quantity:  p.quantity! -1 || 0 };
+          } 
+          return p
+        });
+        return {cart: updatedProducts};
+        }else{
+          const filterdCart = state.cart.filter((p) => p.id !== item.id);
+          return {cart: filterdCart};
+        }
+      }) ,
+
     isOpen: false,
     toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
   }), {name: 'cart-storage'}

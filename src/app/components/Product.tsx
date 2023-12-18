@@ -8,6 +8,7 @@ type ProductProps ={
 }
 export default function Product( {product} : ProductProps) {
     return(
+     <>
         <Link href={`/product/${product.id}`}>
         <div className="flex flex-col shadow-lg h-96 bg-slate-800 p-5 text-gray-300">
             <div className="relative max-h-72 flex-1">
@@ -22,6 +23,7 @@ export default function Product( {product} : ProductProps) {
         </div>
         
         </Link>
+     </>
 
     )
 }
