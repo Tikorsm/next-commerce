@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs"
 import { stripe } from "@/lib/stripe";
 import prisma from "@/lib/prisma";
 import { ProductType } from "@/types/ProductType";
+import { NextResponse } from "next/server";
 
 
 
@@ -74,7 +75,7 @@ export async function POST(req: Request) {
         return new Response("Order not found", {status: 404 })
       }
 
-      return Response.json({ paymentIntents: updated_intent }, { status: 200 })
+      return NextResponse.json({ paymentIntents: updated_intent }, { status: 200 })
 
     };
 
@@ -94,7 +95,7 @@ export async function POST(req: Request) {
     const newOrder = await prisma.order.create({
       data: orderData
     })
-    return Response.json({ paymentIntents }, { status: 200 })
+    return NextResponse.json({ paymentIntents }, { status: 200 })
   }
 
 }
