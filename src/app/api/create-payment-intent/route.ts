@@ -82,20 +82,20 @@ export async function POST(req: Request) {
 
 
   } else {
-    const paymentIntents = await stripe.paymentIntents.create({
+    const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
       currency: 'brl',
       automatic_payment_methods: { enabled: true },
     });
 
-    orderData.paymentIntentID = paymentIntents.id;
+    orderData.paymentIntentID = paymentIntent.id;
 
 
 
     const newOrder = await prisma.order.create({
       data: orderData
     })
-    return NextResponse.json({ paymentIntents }, { status: 200 })
+    return NextResponse.json({ paymentIntent }, { status: 200 })
   }
 
 }
